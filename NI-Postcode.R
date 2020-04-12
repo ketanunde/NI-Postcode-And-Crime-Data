@@ -45,6 +45,7 @@ detach(postcode)
 colnames(postcode)
 
 str(postcode)
+head(postcode, 50)
 
 ###################-------------------#######################
 #
@@ -67,7 +68,9 @@ postcode$POSTCODE[postcode$POSTCODE == ""] <- NA
 # Move the primary key identifier to the start of the dataset. 
 # For column Reorder 
 # Shifted the column named Primary_Key from last to the first in the data frame
+colnames(postcode)
 postcode <- postcode[, c(15, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14)]
+colnames(postcode)
 str(postcode)
 
 
@@ -101,6 +104,7 @@ write.csv(limavady_data, "limavady.csv")
 # Deleting the columns which we not using for futher analysis
 # Those attribute are having more than 60 % NA values whithin them so it 
 # is better to delete those attribute as they could affect the analysis.
+
 postcode$ORGANIZATION_NAME <- NULL
 postcode$SUB_BUILDING_NAME <- NULL
 postcode$BUILDING_NAME <-NULL
@@ -127,8 +131,9 @@ nrow(postcode)
 
 
 # Missing valuse in town are 19872 and in Postcode those are 8900
-
+summary(missing(postcode))
 postcode <- postcode[!(is.na(postcode$TOWN) | is.na(postcode$POSTCODE)),]
+str(postcode)
 
 missing_value <- aggr(postcode, prop = FALSE, numbers = TRUE, plot = FALSE)
 
